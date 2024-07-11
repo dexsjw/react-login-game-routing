@@ -13,12 +13,6 @@ export function ScoreHistoryContextProvider({children}) {
 
     const scoreHandler = (score) => {
         setPastScores(prevPastScores => [...prevPastScores, score]);
-
-        // console.log("setting past scores", pastScores);
-        // console.log("gameOver", gameOver);
-        // if (gameOver) {
-        //     setPastScores(prevPastScores => [...prevPastScores, score]);
-        // }
     }
 
     const contextValue = {pastScores, scoreHandler};

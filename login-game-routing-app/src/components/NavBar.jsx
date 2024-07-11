@@ -1,7 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import styles from './NavBar.module.css';
+import { AuthContext } from '../store/auth-context';
+import { useContext } from 'react';
 
 function NavBar() {
+    const authCtx = useContext(AuthContext);
+
     return (
         <nav className={styles.navContainer}>
             <NavLink
@@ -42,7 +46,8 @@ function NavBar() {
                     isActive ? styles.navItemActive : styles.navItem
                 }
             >
-                Login
+                {!authCtx.isLoggedIn && "Login"}
+                {authCtx.isLoggedIn && "Logout"}
             </NavLink>
         </nav>
     );

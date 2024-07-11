@@ -10,11 +10,11 @@ export function AuthContextProvider({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const loginHandler = () => {
-        setIsLoggedIn(true);
+        setIsLoggedIn(prevState => !prevState);
     }
 
     const logoutHandler = () => {
-        setIsLoggedIn(false);
+        setIsLoggedIn(prevState => !prevState);
     }
 
     const context = {

@@ -2,6 +2,7 @@ import { useContext, useReducer } from "react";
 import { gameReducer, initialGameState } from "../reducers/gameReducer";
 import { ScoreHistoryContext } from "../store/score-context";
 import ScoreHistory from "../components/ScoreHistory";
+import { AuthContext } from "../store/auth-context";
 
 // function getRandomNumber() {
 //   console.log("getRandomNumber called");
@@ -9,6 +10,9 @@ import ScoreHistory from "../components/ScoreHistory";
 // }
 
 function GuessNumberGame() {
+  const authCtx = useContext(AuthContext);
+  const {isLoggedIn} = authCtx;
+
   const scoreHistoryCtx = useContext(ScoreHistoryContext);
   const {scoreHandler} = scoreHistoryCtx;
 
@@ -33,45 +37,49 @@ function GuessNumberGame() {
   }
 
   return (
-    <div>
-      <h1>Guess Number Game</h1>
-      <h2>Score: {score}</h2>
-      <p>Guess a number between 1 and 20.</p>
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <label htmlFor="guess-input">Enter guess</label>
-        <input
-          id="guess-input"
-          type="text"
-          onChange={guessChangeHandler}
-          value={guess}
-        />
-      </div>
-      <div style={{ display: "flex", gap: "20px" }}>
-        <button type="button" onClick={guessHandler} disabled={gameOver}>
-          Guess!
-        </button>
-        <button type="button" onClick={newGameHandler}>
-          New Game
-        </button>
-      </div>
-      <p>{message}</p>
-      <p>Answer: {number}</p>
-      <div className="guesses-container">
-        {pastGuesses.map((pastGuess, i) => (
-          <span key={i} className="guesses-number">
-            {pastGuess}
-          </span>
-        ))}
-      </div>
-      <ScoreHistory />
-    </div>
+    <>
+      {isLoggedIn && (
+        <div>
+          <h1>Guess Number Game</h1>
+          <h2>Score: {score}</h2>
+          <p>Guess a number between 1 and 20.</p>
+          <div
+            style={{
+              display: "flex",
+              gap: "20px",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <label htmlFor="guess-input">Enter guess</label>
+            <input
+              id="guess-input"
+              type="text"
+              onChange={guessChangeHandler}
+              value={guess}
+            />
+          </div>
+          <div style={{ display: "flex", gap: "20px" }}>
+            <button type="button" onClick={guessHandler} disabled={gameOver}>
+              Guess!
+            </button>
+            <button type="button" onClick={newGameHandler}>
+              New Game
+            </button>
+          </div>
+          <p>{message}</p>
+          <p>Answer: {number}</p>
+          <div className="guesses-container">
+            {pastGuesses.map((pastGuess, i) => (
+              <span key={i} className="guesses-number">
+                {pastGuess}
+              </span>
+            ))}
+          </div>
+          <ScoreHistory />
+        </div>
+      )}
+    </>
   );
 }
 
