@@ -38,7 +38,8 @@ function GuessNumberGame() {
 
   return (
     <>
-      {isLoggedIn && (
+      {/* Dex */}
+      {/* {isLoggedIn && (
         <div>
           <h1>Guess Number Game</h1>
           <h2>Score: {score}</h2>
@@ -78,7 +79,39 @@ function GuessNumberGame() {
           </div>
           <ScoreHistory />
         </div>
-      )}
+      )} */}
+      {/* Daniel */}
+      <div>
+        <h1>Guess Number Game 2.6</h1>
+        <p>Guess a number between 1 and 20.</p>
+        <div className="guess-box">
+          <label>Enter guess</label>
+          <input type="text" onChange={guessChangeHandler} value={guess}></input>
+        </div>
+        <div className="guess-buttons">
+          <button
+            type="button"
+            onClick={guessHandler}
+            disabled={gameOver || guess === ""}
+          >
+            Guess!
+          </button>
+          <button type="button" onClick={newGameHandler}>
+            New Game
+          </button>
+        </div>
+
+        <p>{message}</p>
+        <div className="guesses-container">
+          {pastGuesses.map((pastGuess, i) => (
+            <span key={i} className="guesses-number">
+              {pastGuess}
+            </span>
+          ))}
+        </div>
+        <p>Current Score: {score}</p>
+        <ScoreHistory />
+      </div>
     </>
   );
 }

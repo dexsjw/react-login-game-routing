@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../store/auth-context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
@@ -25,6 +25,7 @@ function Login() {
         } else {
             authCtx.loginHandler();
             navigate("/game");
+            // if (authCtx.isLoggedIn) navigate("/game"); // Why doesn't this work?
         }
     }
 
@@ -55,6 +56,9 @@ function Login() {
             {authCtx.isLoggedIn && (
                 <>
                     <h2>Your are logged in!</h2>
+                    <div style={{paddingBottom: "10px"}}>
+                        <Link to="/game">Go to Game</Link>
+                    </div>
                     <button onClick={authCtx.logoutHandler}>Logout</button>
                 </>
             )}

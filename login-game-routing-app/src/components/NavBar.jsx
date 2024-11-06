@@ -4,7 +4,7 @@ import { AuthContext } from '../store/auth-context';
 import { useContext } from 'react';
 
 function NavBar() {
-    const authCtx = useContext(AuthContext);
+    const {isLoggedIn, logoutHandler} = useContext(AuthContext);
 
     return (
         <nav className={styles.navContainer}>
@@ -40,15 +40,32 @@ function NavBar() {
             >
                 Game
             </NavLink>
+            {/* Dex */}
             <NavLink
                 to="login"
                 className={({isActive}) => 
                     isActive ? styles.navItemActive : styles.navItem
                 }
             >
-                {!authCtx.isLoggedIn && "Login"}
-                {authCtx.isLoggedIn && "Logout"}
+                {!isLoggedIn && "Login"}
+                {isLoggedIn && "Logout"}
             </NavLink>
+            {/* Daniel */}
+            {/* {!isLoggedIn && (
+                <NavLink
+                    to="login"
+                    className={({ isActive }) =>
+                        isActive ? styles.navItemActive : styles.navItem
+                    }
+                >
+                Login
+                </NavLink>
+            )}
+            {isLoggedIn && (
+                <span className={styles.navItem} onClick={logoutHandler}>
+                    Log Out
+                </span>
+            )} */}
         </nav>
     );
 }
